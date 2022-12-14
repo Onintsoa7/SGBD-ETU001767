@@ -16,6 +16,8 @@ ex: Drop database school
 Use DATABASENAME
 ex: Use school
 --------------------------------------------------------------------
+SHOW DATABASES
+--------------------------------------------------------------------
 SHOW TABLES 
 --------------------------------------------------------------------
 Create table TABLENAME(ATTRIBU1_type,ATTRIBUT2_type,...)
