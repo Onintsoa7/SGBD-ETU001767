@@ -13,6 +13,8 @@ import table.Table;
 import uses.Functions;
 import writing.Request;
 import javax.swing.JOptionPane;
+
+import frames.Frame;
 public class ClientMain {
     public static void main(String[] args) {
         try {
@@ -27,16 +29,18 @@ public class ClientMain {
             ObjectInputStream objectInputStream = null;
             int done = 0;
             boolean a = true;
-            while(done != 1) {
-                if(a == true){
-                    functions.instructions();
-                    a = false;
-                }
+            while(done != 1) {/* 
+                Frame frame = new Frame(); */
                 socket = clientS.connect(host, port);
                 objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
                 System.out.print("1767SQL>");
                 BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(System.in));
                 String request = bufferedreader.readLine();
+                if(request.equalsIgnoreCase("exit") == true){
+                    System.out.println("See you next time ...");
+                    socket.close();
+                    break;
+                }
                 clientS.sendRequest(request, objectOutputStream);
                     objectInputStream = new ObjectInputStream(socket.getInputStream());
                     Table response =(Table) clientS.getResponse(objectInputStream);

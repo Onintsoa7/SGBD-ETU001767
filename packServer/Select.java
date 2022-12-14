@@ -23,7 +23,19 @@ public class Select implements Serializable{
         Vector<String> allDatas = functions.allFilesExistant( "DATAS/" + this.getRequested().getUser() + "/" +this.getRequested().getDatabase()+"/");
         if(phrases[0].equalsIgnoreCase("show") == true){
             if(phrases[1].equalsIgnoreCase("tables")){
-                this.setMessage("All tables in " + this.getRequested().getDatabase() + " database");
+                return allDatas;
+            }
+        }
+        this.setMessage("Verify your syntax");
+        return null;
+    } 
+    
+    public Vector<String> allDatabases(String request){
+        Functions functions = new Functions();
+        String[] phrases = functions.stringer(request);
+        Vector<String> allDatas = functions.allFilesExistant( "DATAS/" + this.getRequested().getUser() + "/");
+        if(phrases[0].equalsIgnoreCase("show") == true){
+            if(phrases[1].equalsIgnoreCase("databases")){
                 return allDatas;
             }
         }
@@ -105,6 +117,7 @@ public class Select implements Serializable{
         String[] phrases = functions.stringer1(request);
         Table table1 = functions.convertTextFromFileIntoTable(phrases[3],this.getRequested().getDatabase(),this.getRequested().getUser());
         String attributs[] = phrases[1].split(",");
+        String[] want = functions.splitTypeOrAttr(table1, 0);
         if (phrases[0].equalsIgnoreCase("select") == true) {
             if (phrases[1].equals("*") == true) {
                 if (phrases[2].equalsIgnoreCase("from")) {
@@ -112,7 +125,7 @@ public class Select implements Serializable{
                         if (phrases[3].equalsIgnoreCase(allDatas.get(i)) == true) {
                             if (phrases[4].equalsIgnoreCase("where") == true) {
                                 for (int j = 0; j < table1.getAttributs().size(); j++) {
-                                    if (phrases[5].equalsIgnoreCase(table1.getAttributs().get(j)) == true) {
+                                    if (phrases[5].equalsIgnoreCase(want[j]) == true) {
                                         if (phrases[6].equals("=")) {
                                             Vector<Vector<Object>> vector2 = new Vector<>();
                                             for (int j2 = 0; j2 < table1.getDatabases().size(); j2++) {
@@ -149,7 +162,7 @@ public class Select implements Serializable{
                         for (int i = 0; i < attributsList.length; i++) {
                             if (table1.getAttributs().get(j1).equalsIgnoreCase(attributsList[i]) == true) {
                                 for (int j = 0; j < table1.getAttributs().size(); j++) {
-                                    if (table1.getAttributs().get(j).equalsIgnoreCase(phrases[5]) == true) {
+                                    if (want[j].equalsIgnoreCase(phrases[5]) == true) {
                                         for (int j2 = 0; j2 < table1.getDatabases().size(); j2++) {
                                             if (String.valueOf(table1.getDatabases().get(j2).get(j))
                                             .equalsIgnoreCase(phrases[7]) == false) {
@@ -173,7 +186,7 @@ public class Select implements Serializable{
                                     for (int j1 = 0; j1 < table1.getAttributs().size(); j1++) {
                                         if (table1.getAttributs().get(j1).equalsIgnoreCase(phrases[1]) == true) {
                                             for (int j = 0; j < table1.getAttributs().size(); j++) {
-                                                if (table1.getAttributs().get(j).equalsIgnoreCase(phrases[5]) == true) {
+                                                if (want[j].equalsIgnoreCase(phrases[5]) == true) {
                                                     for (int j2 = 0; j2 < table1.getDatabases().size(); j2++) {
                                                         Vector<Object> vector = new Vector<>();
                                                         if (String.valueOf(table1.getDatabases().get(j2).get(j))
@@ -236,12 +249,13 @@ public class Select implements Serializable{
         Functions functions = new Functions();
         Vector<String> allDatas = functions.allFilesExistant("DATAS/" + this.getRequested().getUser() + "/" +this.getRequested().getDatabase()+"/");
         table = functions.convertTextFromFileIntoTable(req[3],this.getRequested().getDatabase(),this.getRequested().getUser());
+        String[] want = functions.splitTypeOrAttr(table, 0);
         if (req[0].equalsIgnoreCase("select")) {
             if (req[1] != "*") {
                 if (table.getDataName().equalsIgnoreCase(req[3]) == true) {
                     for (int i = 0; i < table.getAttributs().size(); i++) {
                         for (int j = 0; j < attr.length; j++) {
-                            if (table.getAttributs().get(i).equalsIgnoreCase(attr[j]) == true) {
+                            if (want[i].equalsIgnoreCase(attr[j]) == true) {
                                 if (req[2].equalsIgnoreCase("from") == true) {
                                     table1 = table.projectionColum(attr);
                                 }

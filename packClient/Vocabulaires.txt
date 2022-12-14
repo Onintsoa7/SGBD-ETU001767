@@ -36,7 +36,7 @@ ex: insert into primary values({ndn},3,12)
 --------------------------------------------------------------------
 ********************************UPDATE******************************
 Update TABLENAME set COLUMN = value1 where COLUMN = value2
-La colonne de la valeur a changée doit etre meme que celui du where
+La colonne de la valeur à changer doit etre meme que celui du where
 Si int
 ex: update primary set age = 3 where age = 4
 Si string

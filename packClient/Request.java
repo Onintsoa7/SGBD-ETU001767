@@ -61,24 +61,34 @@ public class Request {
                 return table;
             }
         }
-        if (tab[0].equalsIgnoreCase("Use") && this.getUser()!=null) {
-            if (functions.isDirectory(tab[1], this.getUser()) == true) {
-                this.setDatabase(tab[1]);
-                table.setDataName(tab[1] + " used");
+        if (this.getUser()!=null) {
+            if(tab[0].equalsIgnoreCase("Use")){
+                if (functions.isDirectory(tab[1], this.getUser()) == true) {
+                    this.setDatabase(tab[1]);
+                    table.setDataName(tab[1] + " used");
+                    return table;
+                } else {
+                    System.out.println("No database with such name");
+                }
+            }
+            if(tab[0].equalsIgnoreCase("show") && tab[1].equalsIgnoreCase("databases")){
+                Select select2 = new Select(this);
+                Vector<String> selected = select2.allDatabases(request);
+                for (int i = 0; i < selected.size(); i++) {
+                    table.setAttributs(selected);
+                }
+                table.setDataName(null);
                 return table;
-            } else {
-                System.out.println("No database with such name");
             }
         }
         if(this.getDatabase() != null && this.getUser()!=null){
             if(tab[0].equalsIgnoreCase("show") == true){
                 Select select2 = new Select(this);
                 Vector<String> selected = select2.allTables(request);
-                Vector<Vector<String>> love = new Vector<>();
                 for (int i = 0; i < selected.size(); i++) {
                     table.setAttributs(selected);
                 }
-                table.setDataName(select2.getMessage());
+                table.setDataName(null);
                 return table;
             }
             if (tab[0].equalsIgnoreCase("Insert") == true) {

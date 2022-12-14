@@ -18,6 +18,20 @@ public class Functions {
     public Functions(Request requested) {
         this.setRequested(requested);
     }
+
+    public String[] splitTypeOrAttr(Table table, int id){
+        int c = 0;
+        String[][] s = new String[table.getAttributs().size()][2];
+        String[] want = new String[table.getAttributs().size()];
+        for (int i = 0; i < table.getAttributs().size(); i++) {
+            s[c] = new String[table.getAttributs().size()];
+            s[c] = table.getAttributs().get(i).split("_");
+            want[c] = s[c][id];
+            c++;
+        }
+        return want;
+    }
+
     public void instructions(){
         System.out.println("HERE ARE THE STEPS: ");
         System.out.println("1)You must be connected as an user who exists");
@@ -178,30 +192,38 @@ public class Functions {
     public void showDatas(Table table) throws Exception {
         try {
             
-            if ((table.getDatabases() == null || table.getDatabases().size() == 0) && table.getDataName() == null) {
+            if(table.getDataName() == null && table.getAttributs() == null && table.getDatabases() == null) {
                 table.setDatabases(null);
                 System.out.println("Table unknown");
             }
-            if (table.getDataName() != null && table.getAttributs() == null) {
+            else if(table.getDataName() != null && table.getAttributs() == null && table.getDatabases() == null){
                 System.out.println(table.getDataName());
             }
-            if(table.getDataName() != null && table.getAttributs() != null && table.getDatabases() == null){
-                System.out.println(table.getDataName());
-               for (int i = 0; i < table.getAttributs().size(); i++) {
-                System.out.println(table.getAttributs().get(i));
-               }
-            }
-            if ((table.getDatabases() == null || table.getDatabases().size() == 0) && table.getDataName() != null) {
+            else if (table.getDataName() != null && table.getAttributs() != null && table.getDatabases() == null) {
                 System.out.println("Empty set");
             }
+            else if(table.getDataName() == null && table.getAttributs() != null && table.getDatabases() == null){
+                for (int i = 0; i < table.getAttributs().size(); i++) {
+                    System.out.println((i+1) + "-" + table.getAttributs().get(i));
+                }
+            }
             else {
+                int c = 0;
+                String[][] s = new String[table.getAttributs().size()][2];
+                String[] want = new String[table.getAttributs().size()];
+                for (int i = 0; i < table.getAttributs().size(); i++) {
+                    s[c] = new String[table.getAttributs().size()];
+                    s[c] = table.getAttributs().get(i).split("_");
+                    want[c] = s[c][0];
+                    c++;
+                }
                 System.out.println(table.getDatabases().size() + " rows selected");
                 System.out.println(
                         "-------------------------------------------------------------------------"
                                 + table.getDataName()
                                 + "-------------------------------------------------------------------------");
                 for (int i = 0; i < table.getAttributs().size(); i++) {
-                    System.out.print("|             " + table.getAttributs().get(i).toUpperCase() + "             |");
+                    System.out.print("|             " + want[i].toUpperCase() + "             |");
                 }
                 System.out.println("");
                 System.out.println("");

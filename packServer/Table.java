@@ -51,7 +51,7 @@ public class Table implements Serializable{
         Vector<String> newAttributs = new Vector<>();
         for (int i = 0; i < attributs.length; i++) {
             for (int j = 0; j < this.getAttributs().size(); j++) {
-                if (this.getAttributs().get(j).equalsIgnoreCase(attributs[i]) == true) {
+                if (this.getAttributs().get(j).contains(attributs[i]) == true) {
                     indexisationTable.add(j);
                 }
             }
