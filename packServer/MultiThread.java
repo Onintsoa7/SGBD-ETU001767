@@ -62,6 +62,5 @@ public class MultiThread extends Thread {
             //TODO: handle exception
             System.out.println(e.getMessage());
         }
-        
     }
 }

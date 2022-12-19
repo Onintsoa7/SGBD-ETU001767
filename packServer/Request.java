@@ -39,6 +39,16 @@ public class Request {
                 }
             }
         }
+        if(tab[0].equalsIgnoreCase("show") && tab[1].equalsIgnoreCase("users")){
+            Select select2 = new Select(this);
+            Vector<String> selected = select2.allUsers(request);
+            for (int i = 0; i < selected.size(); i++) {
+                table.setAttributs(selected);
+            }
+            table.setDataName(null);
+            return table;
+        }
+
         if (tab[0].equalsIgnoreCase("Connect")) {
             if (tab[1].equalsIgnoreCase("as") == true) {
                 if (tab[2].contains("=")) {
@@ -82,6 +92,15 @@ public class Request {
             }
         }
         if(this.getDatabase() != null && this.getUser()!=null){
+            if(tab[0].equalsIgnoreCase("desc") == true){
+                Select select2 = new Select(this);
+                Vector<String> selected = select2.describe(request);
+                for (int i = 0; i < selected.size(); i++) {
+                    table.setAttributs(selected);
+                }
+                table.setDataName(null);
+                return table;
+            }
             if(tab[0].equalsIgnoreCase("show") == true){
                 Select select2 = new Select(this);
                 Vector<String> selected = select2.allTables(request);
@@ -153,6 +172,10 @@ public class Request {
                     table = select.selectLike(request);
                     return table;
                 }
+                else{
+                    table = select.SelectSign(request);
+                    return table;
+                }
             }
             if (request.contains("not in")) {
                 table = select.selectDiffers(request);
@@ -161,6 +184,7 @@ public class Request {
             }
         }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e + " chooseRequest");
         }
         String ins = functions.instructionsSt();

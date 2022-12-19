@@ -13,8 +13,6 @@ import table.Table;
 import uses.Functions;
 import writing.Request;
 import javax.swing.JOptionPane;
-
-import frames.Frame;
 public class ClientMain {
     public static void main(String[] args) {
         try {

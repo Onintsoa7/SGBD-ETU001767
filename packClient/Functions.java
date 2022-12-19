@@ -19,9 +19,50 @@ public class Functions {
         this.setRequested(requested);
     }
 
-    public String[] splitTypeOrAttr(Table table, int id){
+    public boolean comparing(Object a, String b, String comparator) {
+        Integer x = Integer.parseInt(b);
+        String y = String.valueOf(a);
+        Integer o = Integer.parseInt(y);
+        if (comparator.equals("<")) {
+            if (o.intValue() < x.intValue()) {
+                return true;
+            } else {
+                return false;
+
+            }
+        } else if (comparator.equals(">")) {
+            if (o.intValue() > x.intValue()) {
+                return true;
+            } else {
+                return false;
+
+            }
+        } else if (comparator.equals(">=")) {
+            if (o.intValue() >= x.intValue()) {
+                return true;
+            } else {
+                return false;
+
+            }
+        } else if (comparator.equals("<=")) {
+            if (o.intValue() <= x.intValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        } if (comparator.equals("==")) {
+            if (o.intValue() == x.intValue()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public String[] splitTypeOrAttr(Table table, int id, int next) {
         int c = 0;
-        String[][] s = new String[table.getAttributs().size()][2];
+        String[][] s = new String[table.getAttributs().size()][next];
         String[] want = new String[table.getAttributs().size()];
         for (int i = 0; i < table.getAttributs().size(); i++) {
             s[c] = new String[table.getAttributs().size()];
@@ -32,42 +73,45 @@ public class Functions {
         return want;
     }
 
-    public void instructions(){
+    public void instructions() {
         System.out.println("HERE ARE THE STEPS: ");
         System.out.println("1)You must be connected as an user who exists");
         Vector<String> allFStrings = allFilesExistant("DATAS/");
-        if(allFStrings == null){
+        if (allFStrings == null) {
             System.out.println("No users");
         }
         for (int i = 0; i < allFStrings.size(); i++) {
-            System.out.println("User" + (i+1) + ") " + allFStrings.get(i));
+            System.out.println("User" + (i + 1) + ") " + allFStrings.get(i));
         }
         System.out.println("2)You must choose a database that the user you're connected in possess");
         System.out.println("3)You can proceed to do some select/insert/delete table/show tables");
     }
-    public String instructionsSt(){
+
+    public String instructionsSt() {
         String a = "HERE ARE THE STEPS: ";
         String b = "1)You must be connected as an user who exists, maybe no user exits yet";
         String c = "2)You must choose a database that the user you're connected in possess";
         String d = "3)You can proceed to do some select/insert/delete table/show tables";
         String e = "Check vocabularies if unsure";
-        return a +"\n"+ b +"\n"+ c+"\n" + d +"\n" + e ;
+        return a + "\n" + b + "\n" + c + "\n" + d + "\n" + e;
     }
+
     public String classString(String string) {
         String classes = "";
-        for(int i = 0; i < string.length(); i++){
+        for (int i = 0; i < string.length(); i++) {
             System.out.println(string.charAt(i));
-            if(string.charAt(0) == '{'){
+            if (string.charAt(0) == '{') {
                 classes = "string";
                 return classes;
             }
         }
-        if((string.contains("1")||string.contains("2")||string.contains("3")||string.contains("4")||string.contains("5")||string.contains("6")||string.contains("7")||string.contains("8")||string.contains("9")||string.contains("0")) && string.contains("'") == false){
+        if ((string.contains("1") || string.contains("2") || string.contains("3") || string.contains("4")
+                || string.contains("5") || string.contains("6") || string.contains("7") || string.contains("8")
+                || string.contains("9") || string.contains("0")) && string.contains("'") == false) {
             classes = "int";
             return classes;
-        }
-        else{
-            classes="null";
+        } else {
+            classes = "null";
         }
         return classes;
     }
@@ -191,23 +235,19 @@ public class Functions {
 
     public void showDatas(Table table) throws Exception {
         try {
-            
-            if(table.getDataName() == null && table.getAttributs() == null && table.getDatabases() == null) {
+
+            if (table.getDataName() == null && table.getAttributs() == null && table.getDatabases() == null) {
                 table.setDatabases(null);
                 System.out.println("Table unknown");
-            }
-            else if(table.getDataName() != null && table.getAttributs() == null && table.getDatabases() == null){
+            } else if (table.getDataName() != null && table.getAttributs() == null && table.getDatabases() == null) {
                 System.out.println(table.getDataName());
-            }
-            else if (table.getDataName() != null && table.getAttributs() != null && table.getDatabases() == null) {
+            } else if (table.getDataName() != null && table.getAttributs() != null && table.getDatabases() == null) {
                 System.out.println("Empty set");
-            }
-            else if(table.getDataName() == null && table.getAttributs() != null && table.getDatabases() == null){
+            } else if (table.getDataName() == null && table.getAttributs() != null && table.getDatabases() == null) {
                 for (int i = 0; i < table.getAttributs().size(); i++) {
-                    System.out.println((i+1) + "-" + table.getAttributs().get(i));
+                    System.out.println((i + 1) + "-" + table.getAttributs().get(i));
                 }
-            }
-            else {
+            } else {
                 int c = 0;
                 String[][] s = new String[table.getAttributs().size()][2];
                 String[] want = new String[table.getAttributs().size()];

@@ -16,8 +16,6 @@ ex: Drop database school
 Use DATABASENAME
 ex: Use school
 --------------------------------------------------------------------
-SHOW DATABASES
---------------------------------------------------------------------
 SHOW TABLES 
 --------------------------------------------------------------------
 Create table TABLENAME(ATTRIBU1_type,ATTRIBUT2_type,...)
@@ -29,6 +27,9 @@ ex: create table primary(school_string,grade_int,age_int)
 --------------------------------------------------------------------
 Delete table TABLENAME
 ex:delete table primary
+--------------------------------------------------------------------
+Desc TABLENAME
+ex:desc primary
 --------------------------------------------------------------------
 Insert into TABLENAME values(value1,value2,...)
 Si le type de value = string , utiliser {}
@@ -43,7 +44,6 @@ Si int
 ex: update primary set age = 3 where age = 4
 Si string
 ex: update primary set school = {domi} where school = {ndn}
-
 ********************************UPDATE******************************
 --------------------------------------------------------------------
 ********************************SELECT******************************
@@ -66,6 +66,8 @@ Select ATTRIBUT1,ATTRIBUT2,... from TABLENAME (where) not in select ATTRIBUT1,AT
 Select product between TABLENAME1 and TABLENAME2
 
 Select * division TABLENAME1 by TABLENAME2 
+
+Select * from TABLENAME WHERE COLUMN (<,<=,>,>=,==) VALUE
 ********************************SELECT******************************
 --------------------------------------------------------------------
 To deconnect "ctrl + C"
@@ -73,10 +75,9 @@ To deconnect "ctrl + C"
 -Pour entrer l'IP pour hoster
 -Compiler avec 
 >>> javac -d . *.java
--Pour lancer le server 
+-Pour lancer le server
 >>> java compile.ServerMain
 -Pour lancer un client 
 >>> java compile.ClientMain
-
 --------------------------------------------------------------------
 

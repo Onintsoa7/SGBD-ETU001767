@@ -13,8 +13,6 @@ import table.Table;
 import uses.Functions;
 import writing.Request;
 import javax.swing.JOptionPane;
-
-import frames.Frame;
 public class ClientMain {
     public static void main(String[] args) {
         try {
@@ -29,8 +27,7 @@ public class ClientMain {
             ObjectInputStream objectInputStream = null;
             int done = 0;
             boolean a = true;
-            while(done != 1) {/* 
-                Frame frame = new Frame(); */
+            while(done != 1) {
                 socket = clientS.connect(host, port);
                 objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
                 System.out.print("1767SQL>");

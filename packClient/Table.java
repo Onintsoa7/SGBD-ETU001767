@@ -44,8 +44,7 @@ public class Table implements Serializable{
 
     public Table projectionColum(String... attributs) throws Exception {
         Functions functions = new Functions();
-        Table table = new Table();/* 
-        functions.convertTextFromFileIntoTable(this.getDataName()); */
+        Table table = new Table();
         table.setDataName(this.getDataName());
         Vector<Integer> indexisationTable = new Vector<>();
         Vector<String> newAttributs = new Vector<>();
