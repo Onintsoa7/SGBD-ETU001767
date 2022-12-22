@@ -64,6 +64,8 @@ Select ATTRIBUT1,ATTRIBUT2,... from TABLENAME (where) not in select ATTRIBUT1,AT
 
 Select product between TABLENAME1 and TABLENAME2
 
+Select * from TABLENAME where COLUMN (<,<=,>=,==,>) VALUE
+
 Select * division TABLENAME1 by TABLENAME2 
 ********************************SELECT******************************
 --------------------------------------------------------------------
@@ -78,3 +80,4 @@ To deconnect "ctrl + C"
 >>> java compile.ClientMain
 
 --------------------------------------------------------------------
+
